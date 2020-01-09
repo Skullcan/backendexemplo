@@ -1,8 +1,10 @@
-'use strict'
+"use strict";
 
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
+
+const Clientes = use("App/Models/Cliente");
 
 /**
  * Resourceful controller for interacting with clientes
@@ -17,7 +19,8 @@ class ClienteController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async index ({ request, response, view }) {
+  async index({ request, response, view }) {
+    return await Clientes.all();
   }
 
   /**
@@ -29,8 +32,7 @@ class ClienteController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async create ({ request, response, view }) {
-  }
+  async create({ request, response, view }) {}
 
   /**
    * Create/save a new cliente.
@@ -40,7 +42,10 @@ class ClienteController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async store ({ request, response }) {
+  async store({ request, response }) {
+    const data = request.all();
+    const cliente = await Clientes.create(data);
+    return cliente;
   }
 
   /**
@@ -52,7 +57,11 @@ class ClienteController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async show ({ params, request, response, view }) {
+  async show({ params, request, response, view }) {
+    const { id } = params;
+    // const cliente = await Clientes.findOrFail(id);
+    const cliente = await Clientes.findByOrFail("codigo_cli", id);
+    return cliente;
   }
 
   /**
@@ -64,8 +73,7 @@ class ClienteController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async edit ({ params, request, response, view }) {
-  }
+  async edit({ params, request, response, view }) {}
 
   /**
    * Update cliente details.
@@ -75,7 +83,13 @@ class ClienteController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async update ({ params, request, response }) {
+  async update({ params, request, response }) {
+    const { id } = params;
+    const cliente = await Clientes.findByOrFail("codigo_cli", id);
+    const data = request.all();
+    await cliente.merge(data);
+    await cliente.save();
+    return cliente;
   }
 
   /**
@@ -86,8 +100,12 @@ class ClienteController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async destroy ({ params, request, response }) {
+  async destroy({ params, request, response }) {
+    const { id } = params;
+    const cliente = await Clientes.findByOrFail("codigo_cli", id);
+    await cliente.delete();
+    return response.status(200).send("Cliente excluído.");
   }
 }
 
-module.exports = ClienteController
+module.exports = ClienteController;
