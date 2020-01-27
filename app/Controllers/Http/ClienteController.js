@@ -4,6 +4,7 @@
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
+/** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const Clientes = use("App/Models/Cliente");
 
 /**
@@ -20,7 +21,7 @@ class ClienteController {
    * @param {View} ctx.view
    */
   async index({ request, response, view }) {
-    return await Clientes.all();
+    return Clientes.all();
   }
 
   /**
@@ -61,6 +62,7 @@ class ClienteController {
     const { id } = params;
     // const cliente = await Clientes.findOrFail(id);
     const cliente = await Clientes.findByOrFail("codigo_cli", id);
+    await cliente.load("perfil");
     return cliente;
   }
 
