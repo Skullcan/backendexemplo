@@ -19,3 +19,4 @@ const Route = use("Route");
 Route.on("/").render("welcome");
 Route.resource("clientes", "ClienteController").apiOnly();
 Route.resource("perfils", "PerfilController").apiOnly();
+Route.resource("posts", "PostController").apiOnly();

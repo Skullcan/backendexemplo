@@ -7,6 +7,9 @@ class Cliente extends Model {
   perfil() {
     return this.hasOne("App/Models/Perfil");
   }
+  posts() {
+    return this.hasMany("App/Models/Post");
+  }
 }
 
 module.exports = Cliente;
