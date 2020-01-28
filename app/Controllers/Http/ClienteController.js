@@ -65,6 +65,7 @@ class ClienteController {
     await cliente.load("perfil");
     await cliente.load("posts");
     await cliente.load("carros");
+
     return cliente;
   }
 

@@ -22,3 +22,4 @@ Route.resource("perfils", "PerfilController").apiOnly();
 Route.resource("posts", "PostController").apiOnly();
 Route.resource("carros", "CarroController").apiOnly();
 Route.resource("carroclientes", "CarroClienteController").apiOnly();
+Route.resource("paises", "PaisController").apiOnly();
