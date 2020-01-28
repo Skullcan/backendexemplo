@@ -64,6 +64,7 @@ class ClienteController {
     const cliente = await Clientes.findByOrFail("codigo_cli", id);
     await cliente.load("perfil");
     await cliente.load("posts");
+    await cliente.load("carros");
     return cliente;
   }
 

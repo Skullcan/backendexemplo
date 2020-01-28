@@ -10,6 +10,9 @@ class Cliente extends Model {
   posts() {
     return this.hasMany("App/Models/Post");
   }
+  carros() {
+    return this.belongsToMany("App/Models/Carro").pivotTable("carro_clientes");
+  }
 }
 
 module.exports = Cliente;
