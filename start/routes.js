@@ -23,3 +23,6 @@ Route.resource("posts", "PostController").apiOnly();
 Route.resource("carros", "CarroController").apiOnly();
 Route.resource("carroclientes", "CarroClienteController").apiOnly();
 Route.resource("paises", "PaisController").apiOnly();
+
+Route.post("/users", "UserController.store");
+Route.post("/sessions", "SessionController.create");
